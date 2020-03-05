@@ -70,7 +70,16 @@ Imagine learning a skill like driving. In order to drive properly you not only n
 \newline
 \indent When learning the rules of the road, a naive assumption is that all experts have taught properly and that all the instruction received is correct. If there are bad or even illegal driving habits, these will need to be corrected to ensure safe driving. In real life if a person runs a red light or makes illegal u-turns, after a certain point a police officer would come and help correct that behavior (through a ticket or more serious consequences). We are able to be corrected because the rules in our heads are manipulable, where a human operator can easily modify a learned policy to perform similar but different policies. 
 \newline
-\indent Applying this to robotic learning, the authors work towards teaching a robot to learn from demonstrations not just a low-level policy, but also a high level policy that is interpretable and manipulable. The policies that a robot learns should be interpretable, where there is a set of learned representation of rules. The behavior of the robot should be manipulable, where the rules can be changed in a predictable way which results in changed behavior.
+\indent Applying this to robotic learning, the authors work towards teaching a robot to learn from demonstrations not just a low-level policy, but also a high level policy that is interpretable and manipulable. The authors create a Logic-based Value Network (LVIN) which utilize these two principles in learning policies. The policies that a robot learns should be interpretable, where there is a set of learned representation of rules. The behavior of the robot should be manipulable, where the rules can be changed in a predictable way which results in changed behavior. The LVIN model is a recurrent, convolutional neural network which uses value iteration over a learned Markov Decision Process (MDP). This MDP factors into two seperate parts, the first as a finite state automaton (FSA) corresponding to the low-level policy, and a bigger MDP corresponding to the rules in an environment.
+\newline
+\indent A big benefit to this approach to learning is that a robot won't just learn from demonstrations, but can modify the learned policy to be safe. Going back to the driving example, but this time with a robot, if a robot was learning the rules of the road and five percent of the training data included say illegal left turns which results in crashes then the robot would learn the policy which crashes five percent of the time. With the author's approach in robotic learning, such a policy can be corrected to stop the crashes. These rules can also be applied in many alternative scenarios. 
+\newline
+\indent In this paper, the authors main contributions are
+\begin{enumerate}
+  \item A Logic-based Value Network (LVIN) model which learns policies for robotic learning with an imitation learning goal. The authors show the effectiveness of the LVIN model through four different benchmark scenarios.
+  \item The authors show that the model can learn the transitions from state to state, showing that it can interpret the rules.
+  \item  The authors show that the learning is manipulable, thus generalizing to other tasks and fix mistakes without extra training or experts.
+\end{enumerate}
 
 \section{Related Work}
 

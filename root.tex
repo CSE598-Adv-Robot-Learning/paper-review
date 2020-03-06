@@ -83,12 +83,20 @@ Imagine learning a skill like driving. In order to drive properly you not only n
 
 \section{Related Work}
 
-\subsection{Selecting a Template (Heading 2)}
+\subsection{Logic-based Approaches}
 
 First, confirm that you have the correct template for your paper size. This template has been tailored for output on the US-letter paper size. 
 It may be used for A4 paper size if the paper size setting is suitably modified.
 
-\subsection{Maintaining the Integrity of the Specifications}
+\subsection{Multitask and Meta Learning}
+
+The template is used to format your paper and style the text. All margins, column widths, line spaces, and text fonts are prescribed; please do not alter them. You may note peculiarities. For example, the head margin in this template measures proportionately more than is customary. This measurement and others are deliberate, using specifications that anticipate your paper as one part of the entire proceedings, and not as an independent document. Please do not revise any of the current designations
+
+\subsection{Faulty Experts}
+
+The template is used to format your paper and style the text. All margins, column widths, line spaces, and text fonts are prescribed; please do not alter them. You may note peculiarities. For example, the head margin in this template measures proportionately more than is customary. This measurement and others are deliberate, using specifications that anticipate your paper as one part of the entire proceedings, and not as an independent document. Please do not revise any of the current designations
+
+\subsection{Hierarchical Learning}
 
 The template is used to format your paper and style the text. All margins, column widths, line spaces, and text fonts are prescribed; please do not alter them. You may note peculiarities. For example, the head margin in this template measures proportionately more than is customary. This measurement and others are deliberate, using specifications that anticipate your paper as one part of the entire proceedings, and not as an independent document. Please do not revise any of the current designations
 
@@ -171,8 +179,16 @@ Three & Four\\
 Figure Labels: Use 8 point Times New Roman for Figure labels.
 
 \section{Discussion and Analysis}
+The authors mentioned was that the LVIN model works for finite grid world environments. These finite grid world environments are limited to a 2D grid. These applications might be incredibly useful integrated into a factory workplace with robots in highly controlled environments.
+\newline
+\indent However, the real world is three dimensional and highly unpredictable. These finite grid world environment limits LVIN's real world use case. While the authors have a real world experiment with the Jaco arm to show the LVIN model's effectiveness, the real world experiment exists in a highly controlled environment which is not representative of real world situations.
+\newline
+\indent A logical next step could be extending the 2D grid into a 3D grid world. We would imagine that the larger MDP for the rules of the world would add another dimension and the smaller FSA would add more states. Overall the new network model would be more complex. While the complexity of the network would increase, we do not believe the complexity change would not be too big of a problem in training on modern computers which train significantly large machine learning models.
+\newline
+\indent It also seems the manipulability of the learning is limited. The authors modify the state after detecting an error and to correct bad behavior. It would be quite interesting to see if the model can automatically detect errors and self correct. We imagine there can be neural network infrastructure which can be added for error detection.
+\newline
+\indent It would be quite interesting to explore the LVIN model with moving objects/obstacles in the 2D grid environment. How much would that effect the learned policies and how much impact would introducing such dynamic objects change the output behavior.
 
-A discussion section is not required. Although a discussion may review the main points of the paper, do not replicate the abstract as the conclusion. A discussion might elaborate on the importance of the work or suggest applications and extensions.
 
 \section{CONCLUSIONS}
 

@@ -3,6 +3,7 @@
 %        1         2         3         4         5         6         7         8
 
 \documentclass[letterpaper, 10 pt, conference]{ieeeconf}  % Comment this line out if you need a4paper
+\usepackage{graphicx}
 
 %\documentclass[a4paper, 10pt, conference]{ieeeconf}      % Use this line for a4 paper
 
@@ -85,56 +86,65 @@ Imagine learning a skill like driving. In order to drive properly you not only n
 
 \subsection{Logic-based Approaches}
 
-First, confirm that you have the correct template for your paper size. This template has been tailored for output on the US-letter paper size. 
-It may be used for A4 paper size if the paper size setting is suitably modified.
+\begin{itemize}
+  \item Logical structure LTL
+\end{itemize}
 
 \subsection{Multitask and Meta Learning}
 
-The template is used to format your paper and style the text. All margins, column widths, line spaces, and text fonts are prescribed; please do not alter them. You may note peculiarities. For example, the head margin in this template measures proportionately more than is customary. This measurement and others are deliberate, using specifications that anticipate your paper as one part of the entire proceedings, and not as an independent document. Please do not revise any of the current designations
+\begin{itemize}
+  \item Learning many things at the same time.
+  \item One shot learning.
+\end{itemize}
 
 \subsection{Faulty Experts}
 
-The template is used to format your paper and style the text. All margins, column widths, line spaces, and text fonts are prescribed; please do not alter them. You may note peculiarities. For example, the head margin in this template measures proportionately more than is customary. This measurement and others are deliberate, using specifications that anticipate your paper as one part of the entire proceedings, and not as an independent document. Please do not revise any of the current designations
+\begin{itemize}
+  \item Reinforcement learning through imperfect demonstrations
+  \item Intention learning vs Imitation learning
+\end{itemize}
 
 \subsection{Hierarchical Learning}
 
-The template is used to format your paper and style the text. All margins, column widths, line spaces, and text fonts are prescribed; please do not alter them. You may note peculiarities. For example, the head margin in this template measures proportionately more than is customary. This measurement and others are deliberate, using specifications that anticipate your paper as one part of the entire proceedings, and not as an independent document. Please do not revise any of the current designations
+\begin{itemize}
+  \item Reinforcement learning through hierarchy of machines.
+  \item Hierarchical Imitation and Reinforcement learning
+\end{itemize}
 
 \section{Problem Statement}
 
-Before you begin to format your paper, first write and save the content as a separate text file. Keep your text and graphic files separate until after the text has been formatted and styled. Do not use hard tabs, and limit use of hard returns to only one return at the end of a paragraph. Do not add any kind of pagination anywhere in the paper. Do not number text heads-the template will do that for you.
-
-Finally, complete content and organizational editing before formatting. Please take note of the following items when proofreading spelling and grammar:
-
-\subsection{Abbreviations and Acronyms} Define abbreviations and acronyms the first time they are used in the text, even after they have been defined in the abstract. Abbreviations such as IEEE, SI, MKS, CGS, sc, dc, and rms do not have to be defined. Do not use abbreviations in the title or heads unless they are unavoidable.
-
-\subsection{Units}
-
+The overall goal is of this paper is to create a model that learns from demonstration not just a low-level policy but also a high level policy that is interpretable and manipulable. For our problem statement, we make a few assumptions. 
 \begin{itemize}
-
-\item Use either SI (MKS) or CGS as primary units. (SI units are encouraged.) English units may be used as secondary units (in parentheses). An exception would be the use of English units as identifiers in trade, such as 3.5-inch disk drive.
-
+  \item We assume that rules can be encoded as finite state automaton (FSA). 
+  \item We assume that the relative features in an environment can be detected.
+  \item We assume that the FSA states are known.
+  \item We assume that the environment outputs current FSA state as well as low level state at each time step.
+  \item The learned policy comes from the learned transitions among the FSA states and low-level transitions.
 \end{itemize}
 
+When authors say that they can detect the relative features of an environment, what they mean is that these features can be treated as logical propositions or a true/false variable. For example in a 2D grid environment, if there is a red light in the environment then at that particular grid position (x,y) where the red light is located the variable would be set to true. If there was no red light, then the variable would be set to false.
+\newline
+\indent We assume that the expert is following some sort of finite state controller. This finite state maps to the variables in the environment with different states corresponding to the variables environmental. There are different actions based on the variable. For example, move forward on a green light as an action in the state machine. The FSA which the expert follows is the overall policy in which our network wants to learn. The learnt FSA is interpretable because the model can learn expert trajectories. Additionally, this model can obtain new policies without re-learning a changed expert FSA.
 
-\subsection{Equations}
+\subsection{Value Iteration Network} 
+The LVIN network is based off of the Value Iteration Network [2]. The Value Iteration Network architecture is a fully differentiable version of value iteration. The Q function is calculated using a convolution and the Value function is calculated using a max pool function. This lets you learn the reward function and transition function. One limitation is that this Value Iteration Network is that it works best in a 2D grid environment due to the structure of the network.
+\begin{figure}[h]
+ \centering
+ \includegraphics[scale=.33]{ValueIterationNetwork.JPG}\\
+ \caption{A block diagram of the Value Iteration Network. The module is shown on the right. The reward function is R, while the transition function is P.}
+\end{figure}
+\newpage
+\subsection{Logic-Based Value Iteration Network}
+There are two differences between the Logic-Based Value Iteration Network and the Value Iteration Network. 
+\begin{figure}[h]
+ \centering
+ \includegraphics[scale=.5]{LVIN.JPG}\\
+ \caption{A block diagram of the Logic-Based Value Iteration Network, figure 4 in the paper [1].}
+\end{figure}
 
-The equations are an exception to the prescribed specifications of this template. You will need to determine whether or not your equation should be typed using either the Times New Roman or the Symbol font (please no other font). To create multileveled equations, it may be necessary to treat the equation as a graphic and insert it into the text after your paper is styled. Number equations consecutively. Equation numbers, within parentheses, are to position flush right, as in (1), using a right tab stop. To make your equations more compact, you may use the solidus ( / ), the exp function, or appropriate exponents. Italicize Roman symbols for quantities and variables, but not Greek symbols. Use a long dash rather than a hyphen for a minus sign. Punctuate equations with commas or periods when they are part of a sentence, as in
-
-$$
-\alpha + \beta = \chi \eqno{(1)}
-$$
-
-Note that the equation is centered using a center tab stop. Be sure that the symbols in your equation have been defined before or immediately following the equation. 
-
-\subsection{Some Common Mistakes}
-\begin{itemize}
-
-
-\item In American English, commas, semi-/colons, periods, question and exclamation marks are located within quotation marks only when a complete thought or name is cited, such as a title or full quotation. When quotation marks are used, instead of a bold or italic typeface, to highlight a word or phrase, punctuation should appear outside of the quotation marks. A parenthetical phrase or statement at the end of a sentence is punctuated outside of the closing parenthesis (like this). (A parenthetical sentence is punctuated within the parentheses.)
-
-\end{itemize}
-
+The first difference is that LVIN has a Value Iteration Network for every FSA state. As a result, the reward function and transition function are learned for every FSA state.
+\newline 
+\indent The second difference is there is a second convolution which is applied afterwards, which is represented by TM. This convolution is based off the transitions of the FSA. The second convolution helps the model learn the transitions of the FSA's.
 
 \section{Experiments}
 
@@ -216,7 +226,7 @@ In conclusion, the authors introduce a Logic-Based Value Iteration network which
 \begin{thebibliography}{99}
 
 \bibitem{c1} Araki, Brandon \& Vodrahalli, Kiran \& Leech, Thomas \& Vasile, Cristian-Ioan \& Donahue, Mark \& Rus, Daniela. (2019). Learning to Plan with Logical Automata.
-\bibitem{c2} W.-K. Chen, Linear Networks and Systems (Book style).	Belmont, CA: Wadsworth, 1993, pp. 123135.
+\bibitem{c2} Aviv Tamar, Yi Wu, Garrett Thomas, Sergey Levine, and Pieter Abbeel. Value iteration networks. In Advances in Neural Information Processing Systems 29, pages 2154– 2162, 2016.
 
 
 \end{thebibliography}

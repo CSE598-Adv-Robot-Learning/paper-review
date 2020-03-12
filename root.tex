@@ -147,46 +147,78 @@ The first difference is that LVIN has a Value Iteration Network for every FSA st
 \indent The second difference is there is a second convolution which is applied afterwards, which is represented by TM. This convolution is based off the transitions of the FSA. The second convolution helps the model learn the transitions of the FSA's.
 
 \section{Experiments}
+The LVIN model was tested against 2-3 baselines in 4 different virtual domains (Kitchen, Longterm, Pickworld, and Driving). Each domain emphasized a key claim of the LVIN network's capabilities. 
 
-Use this sample document as your LaTeX source file to create your document. Save this file as {\bf root.tex}. You have to make sure to use the cls file that came with this distribution. If you use a different style file, you cannot expect to get required margins. Note also that when you are creating your out PDF file, the source file is only part of the equation. {\it Your \TeX\ $\rightarrow$ PDF filter determines the output file size. Even if you make all the specifications to output a letter file in the source - if your filter is set to produce A4, you will only get A4 output. }
+\subsection{Data Generation}
 
-It is impossible to account for all possible situation, one would encounter using \TeX. If you are using multiple \TeX\ files you must make sure that the ``MAIN`` source file is called root.tex - this is particularly important if your conference is using PaperPlaza's built in \TeX\ to PDF conversion tool.
+The authors use a software package to convert specified tasks into FSAs. Each FSA state contains a goal state, as well as undesired termination states. For each of the four domains, the authors generate proposition variables. The expert trajectories were created by using the Dijkstra's shortest path algorithm for the imitation learning data.
 
-\subsection{Headings, etc}
+\subsection{Base Lines}
 
-Text heads organize the topics on a relational, hierarchical basis. For example, the paper title is the primary text head because all subsequent material relates and elaborates on this one topic.
+\begin{itemize}
+  \item Value Iteration Network. The authors compared the LVIN to the VIN.
+  \item Hard-coded LVIN. The TM is hard coded into the LVIN. The LVIN with a learned TM is compared to a Hard-coded LVIN with a known TM.
+  \item CNN. Instead of a second convolution for the learned TM, there is a 3-D convolutional neural network attached at the end that learns the transitions of the FSAs.
+\end{itemize}
 
-\subsection{Figures and Tables}
+\subsection{Domains}
+\textbf{Kitchen}. In a 8x8 grid world in figure 3, the kitchen domain had milk, cereal and obstacles in the environment. The goal was to first fill a bowl with milk before filling it with cereal while avoiding the obstacles.
+\begin{figure}[h]
+ \centering
+ \includegraphics[scale=.6]{Kitchen.JPG}\\
+ \caption{Kitchen Domain}
+\end{figure}
+Measuring the LVIN model against the baselines, we see in figure 4 that the LVIN model performs just as well as the hard-coded LVIN and CNN while the VIN performed poorly.
+\begin{figure}[h]
+ \centering
+ \includegraphics[scale=.6]{KitchenResults.JPG}\\
+ \caption{Performance in the Kitchen domain}
+\end{figure}
+\newline
+\textbf{Longterm}. In the 12x9 grid world in figure 5, the goal is to pick up each key to access the corresponding door to reach the goal position. This emphasizes learning long term complex behavior to reach the goal.
+\begin{figure}[h]
+ \centering
+ \includegraphics[scale=.5]{Longterm.JPG}\\
+ \caption{Longterm Domain}
+\end{figure}
+\newpage
+We see that the LVIN and CNN have good accuracy while the VIN struggles to learn the complex paths.
+\begin{figure}[h!]
+ \centering
+ \includegraphics[scale=.6]{LongtermResults.JPG}\\
+ \caption{Performance in the Longterm domain}
+\end{figure}
+\newline
+\textbf{Pickworld}. In a 18x7 grid world in figure 7, the goal in the Pickworld domain is to first pick up either a sandwich a or a burger b and put it in a lunchbox d, and then pick up a banana c and put it in the lunchbox d.
+\begin{figure}[h]
+ \centering
+ \includegraphics[scale=.5]{Pickworld.JPG}\\
+ \caption{Pickworld Domain}
+\end{figure}
+The LVIN, the Hard-coded LVIN and the CNN performed the task quite well. The VIN struggled to learn the task. The LVIN models were the most successful.
+\begin{figure}[h]
+ \centering
+ \includegraphics[scale=.6]{PickworldResults.JPG}\\
+ \caption{Performance in the Pickworld Domain}
+\end{figure}
+\newline
+\textbf{Driving}. In a 14x14 gridworld, this driving showcases the LVIN's ability to learn the rules of the world. The goal was to reach the goal position while learning to stop on red lights and wait until it turned green and to avoid obstacles in the environment.
+\begin{figure}[h]
+ \centering
+ \includegraphics[scale=.5]{Driving.JPG}\\
+ \caption{Driving Domain}
+\end{figure}
+Surprisingly, the VIN does better than the other baselines probably because there is only one sequential goal. LVIN, Hard-coded LVIN and CNN perform quite well.
+\begin{figure}[h]
+ \centering
+ \includegraphics[scale=.6]{DrivingResults.JPG}\\
+ \caption{Performance in the Driving Domain}
+\end{figure}
 
-Positioning Figures and Tables: Place figures and tables at the top and bottom of columns. Avoid placing them in the middle of columns. Large figures and tables may span across both columns. Figure captions should be below the figures; table heads should appear above the tables. Insert figures and tables after they are cited in the text.
-
-\begin{table}[h]
-\caption{An Example of a Table}
-\label{table_example}
-\begin{center}
-\begin{tabular}{|c||c|}
-\hline
-One & Two\\
-\hline
-Three & Four\\
-\hline
-\end{tabular}
-\end{center}
-\end{table}
-
-
-   \begin{figure}[thpb]
-      \centering
-      \framebox{\parbox{3in}{We suggest that you use a text box to insert a graphic (which is ideally a 300 dpi TIFF or EPS file, with all fonts embedded) because, in an document, this method is somewhat more stable than directly inserting a picture.
-}}
-      %\includegraphics[scale=1.0]{figurefile}
-      \caption{Inductance of oscillation winding on amorphous
-       magnetic core versus DC bias magnetic field}
-      \label{figurelabel}
-   \end{figure}
-   
-
-Figure Labels: Use 8 point Times New Roman for Figure labels.
+\subsection{Interpretability and Manipulability Analysis}
+\textbf{Interpretability}.
+\newline
+\textbf{Manipulability}
 
 \section{Discussion and Analysis}
 The authors mentioned was that the LVIN model works for finite grid world environments. These finite grid world environments are limited to a 2D grid. These applications might be incredibly useful integrated into a factory workplace with robots in highly controlled environments.

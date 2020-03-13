@@ -216,9 +216,71 @@ Surprisingly, the VIN does better than the other baselines probably because ther
 \end{figure}
 
 \subsection{Interpretability and Manipulability Analysis}
-\textbf{Interpretability}.
+\textbf{Interpretability}. Interpretability means that there is a meaningful learned FSA representations of rules. The learned TM should be similar to that of the true expert trajectory. We examine the different states and the corresponding learned TM and compare that with the true TM. Overall we see that the learned TM is similar to the true TM.
 \newline
-\textbf{Manipulability}
+\newline
+\textit{Kitchen}. For the kitchen, the goal of S0 is to reach goal a and S1 is to reach goal b.
+\begin{figure}[h]
+ \centering
+ \includegraphics[scale=.6]{KitchenTM.JPG}\\
+ \caption{Kitchen Transition Matrix}
+\end{figure}
+\newline
+\textit{Pickworld}. For the Pickworld, the goal of S0 is to reach either a or b. The goal of S1 is to reach d. The goal of S2 is to reach c. The goal of S3 is to reach D again. The unexpected transitions are highlighted in red.
+\newline
+\begin{figure}[h]
+ \centering
+ \includegraphics[scale=.4]{PickworldTM.JPG}\\
+ \caption{Pick world Transition Matrix}
+\end{figure}
+
+\textit{Driving}. For the Drive world, the S0 is when the car drives on the right lane to reach the goal. S1 is when the car drives on the left lane to reach the goal. S2 is when the care is at a red light. The unexpected transitions are highlighted in red.
+\begin{figure}[h]
+ \centering
+ \includegraphics[scale=.5]{DrivingTM.JPG}\\
+ \caption{Drive world Transition Matrix}
+\end{figure}
+\newline
+\textit{Longterm}. For the Longterm world, there are far more states available compared to the other domains. There is a total of 10 propositions which map to 33 different states. One rule that confines the state space is that all the keys must be picked up in order as a result only 6 of the 33 possible states are visited. Each table is associated with a single state and shows how to get to the next FSA state.
+\begin{figure}[h]
+ \centering
+ \includegraphics[scale=.45]{LongtermTM.JPG}\\
+ \caption{Transition Matrix of the Long Term domain. The unvisited states are gray. The unexpected transitions are red. The cells of interest are in yellow.}
+\end{figure}
+
+\textbf{Manipulability}. Manipulability means that the behavior can be changed when the rules are modified in a predictable way which modifies the FSA transitions. The authors implement the pickworld domain onto a jaco arm to show the LVIN model working in real life. The objects were tracked with an optitracker and commands were sent via ROS. The transition matrix is modified for new behavior without relearning. 
+\begin{figure}[h]
+ \centering
+ \includegraphics[scale=.3]{Jacoarm.JPG}\\
+ \caption{Pickworld with a Jacoarm.}
+\end{figure}
+\newpage
+Below is the modified transition matrix with red representing deleted values and green representing added values. The authors use three different changed transition matrices to test.
+\begin{figure}[h]
+ \centering
+ \includegraphics[scale=.5]{JacoarmTM.JPG}\\
+ \caption{Modified transition matrix.}
+\end{figure}
+
+We saw that the performance of the LVIN, Mod. LVIN and the CNN were largely successful. The LVIN and CNN are baselines directly trained on the new specifications. The modified LVIN is the old LVIN with a changed transition matrix. The modified CNN did poorly because the TM is not included and the CNN performs the old specification. This highlights the need for manipulability which the LVIN is capable of. The failures resulted from the banana falling out the the jaco arm grip.
+\begin{figure}[h]
+ \centering
+ \includegraphics[scale=.5]{JacoarmResults.JPG}\\
+ \caption{Jaco arm performance.}
+\end{figure}
+\begin{figure}[h]
+ \centering
+ \includegraphics[scale=.5]{JacoarmFail.JPG}\\
+ \caption{Reason for failure.}
+\end{figure}
+
+\section{Fixing Expert Mistakes}
+Sometimes the data that is learned has a mistake. In this case, the authors used the driving world and had an issue of running a red light 10 percent of the time. The authors corrected this by setting the initial state entry to 0 and red light state entry to 1 to show there is a red light there. 
+\begin{figure}[h]
+ \centering
+ \includegraphics[scale=.5]{DrivingSafe.JPG}\\
+ \caption{Safety driving scenario.}
+\end{figure}
 
 \section{Discussion and Analysis}
 The authors mentioned was that the LVIN model works for finite grid world environments. These finite grid world environments are limited to a 2D grid. These applications might be incredibly useful integrated into a factory workplace with robots in highly controlled environments.

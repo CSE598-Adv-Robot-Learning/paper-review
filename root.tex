@@ -251,26 +251,26 @@ Surprisingly, the VIN does better than the other baselines probably because ther
 \textbf{Manipulability}. Manipulability means that the behavior can be changed when the rules are modified in a predictable way which modifies the FSA transitions. The authors implement the pickworld domain onto a jaco arm to show the LVIN model working in real life. The objects were tracked with an optitracker and commands were sent via ROS. The transition matrix is modified for new behavior without relearning. 
 \begin{figure}[h]
  \centering
- \includegraphics[scale=.3]{Jacoarm.JPG}\\
+ \includegraphics[scale=.3]{JacoArm.JPG}\\
  \caption{Pickworld with a Jacoarm.}
 \end{figure}
 \newpage
 Below is the modified transition matrix with red representing deleted values and green representing added values. The authors use three different changed transition matrices to test.
 \begin{figure}[h]
  \centering
- \includegraphics[scale=.5]{JacoarmTM.JPG}\\
+ \includegraphics[scale=.5]{JacoArmTM.JPG}\\
  \caption{Modified transition matrix.}
 \end{figure}
 
 We saw that the performance of the LVIN, Mod. LVIN and the CNN were largely successful. The LVIN and CNN are baselines directly trained on the new specifications. The modified LVIN is the old LVIN with a changed transition matrix. The modified CNN did poorly because the TM is not included and the CNN performs the old specification. This highlights the need for manipulability which the LVIN is capable of. The failures resulted from the banana falling out the the jaco arm grip.
 \begin{figure}[h]
  \centering
- \includegraphics[scale=.5]{JacoarmResults.JPG}\\
+ \includegraphics[scale=.5]{JacoArmResults.JPG}\\
  \caption{Jaco arm performance.}
 \end{figure}
 \begin{figure}[h]
  \centering
- \includegraphics[scale=.5]{JacoarmFail.JPG}\\
+ \includegraphics[scale=.5]{JacoArmFail.JPG}\\
  \caption{Reason for failure.}
 \end{figure}
 

@@ -95,17 +95,11 @@ Multitask learning methods can refer to methods used to learn in a multitask set
 
 \subsection{Faulty Experts}
 
-\begin{itemize}
-  \item Reinforcement learning through imperfect demonstrations
-  \item Intention learning vs Imitation learning
-\end{itemize}
+In imitation learning, the goal is to mimic the demonstration of an expert. However, faulty experts can result in the wrong behavior being learned and replicated. To combat the effects of faulty experts, a paper published in 2015 introduces a new learning paradigm that combines imitation learning with intention learning, which learns the expert's intent rather than strictly copying its actions [9]. Another work published in 2019 proposed a unified reinforcement learning algorithm that normalizes the Q-function and learning through demonstration and interactive refinement in the environment using the same objective which helps protect from faulty demonstrations by not forcing the method to mimic all of the examples in the dataset [10].
 
 \subsection{Hierarchical Learning}
 
-\begin{itemize}
-  \item Reinforcement learning through hierarchy of machines.
-  \item Hierarchical Imitation and Reinforcement learning
-\end{itemize}
+The LVIN model introduced by the authors is an instance of hierarchical learning which was first introduced in a paper by Parr and Russel in 1998 which introduced the approach that allows for the use of prior knowledge to reduce the search space [11]. The options framework outlined by Sutton, Precup, and Singh enables the abstraction of temporal knowledge to be used in specifying policies [12]. One recent work utilize the hierarchical learning and options frameworks to speed up learning and reduce expert effort and cost of exploration through a framework that combines imitation learning and reinforcement learning at different levels [13].
 
 \section{Problem Statement}
 The overall goal is of this paper is to create a model that learns from demonstration a low-level policy, as well as a high level policy that is interpretable and manipulable. For our problem statement, we make a few assumptions. 
@@ -122,7 +116,7 @@ When authors say that they can detect the relative features of an environment, w
 \indent We assume that the expert is following some sort of finite state controller. This finite state maps to the variables in the environment with different states corresponding to the variables environment. There are different actions based on the variable. For example, move forward on a green light as an action in the state machine. The FSA which the expert follows is the overall policy in which our network wants to learn. The learnt FSA is interpretable because the model can learn expert trajectories. Additionally, this model can obtain new policies without re-learning a changed expert FSA.
 
 \subsection{Value Iteration Network} 
-The LVIN network is based off of the Value Iteration Network [10]. The Value Iteration Network architecture is a fully differentiable version of value iteration. The Q function is calculated using a convolution and the Value function is calculated using a max pool function. This lets you learn the reward function and transition function. One limitation is that this Value Iteration Network is that it works best in a 2D grid environment due to the structure of the network.
+The LVIN network is based off of the Value Iteration Network [15]. The Value Iteration Network architecture is a fully differentiable version of value iteration. The Q function is calculated using a convolution and the Value function is calculated using a max pool function. This lets you learn the reward function and transition function. One limitation is that this Value Iteration Network is that it works best in a 2D grid environment due to the structure of the network.
 \begin{figure}[h]
  \centering
  \includegraphics[scale=.33]{ValueIterationNetwork.JPG}\\
@@ -134,7 +128,7 @@ There are two differences between the Logic-Based Value Iteration Network and th
 \begin{figure}[h]
  \centering
  \includegraphics[scale=.5]{LVIN.JPG}\\
- \caption{A block diagram of the Logic-Based Value Iteration Network, figure 4 in the paper [9].}
+ \caption{A block diagram of the Logic-Based Value Iteration Network, figure 4 in the paper [14].}
 \end{figure}
 
 The first difference is that LVIN has a Value Iteration Network for every FSA state. As a result, the reward function and transition function are learned for every FSA state.
@@ -323,8 +317,13 @@ In conclusion, the authors introduce a Logic-Based Value Iteration network which
 \bibitem{c6} Chelsea Finn, Pieter Abbeel, and Sergey Levine. Modelagnostic meta-learning for fast adaptation of deep networks. Proceedings of the 34th International Conference on Machine Learning, 2017.
 \bibitem{c7} Chelsea Finn, Tianhe Yu, Tianhao Zhang, Pieter Abbeel, and Sergey Levine. One-shot visual imitation learning via meta-learning. arXiv preprint arXiv:1709.04905, 2017.
 \bibitem{c8} De-An Huang, Suraj Nair, Danfei Xu, Yuke Zhu, Animesh Garg, Fei-Fei Li, Silvio Savarese, and Juan Carlos Niebles. Neural task graphs: Generalizing to unseen tasks from a single video demonstration. ArXiv e-prints, 2018.
-\bibitem{c9} Araki, Brandon \& Vodrahalli, Kiran \& Leech, Thomas \& Vasile, Cristian-Ioan \& Donahue, Mark \& Rus, Daniela. (2019). Learning to Plan with Logical Automata.
-\bibitem{c10} Aviv Tamar, Yi Wu, Garrett Thomas, Sergey Levine, and Pieter Abbeel. Value iteration networks. In Advances in Neural Information Processing Systems 29, pages 2154– 2162, 2016.
+\bibitem{c9} James MacGlashan and Michael L. Littman. Between imitation and intention learning. IJCAI’15 Proceedings of the 24th International Conference on Artificial Intelligence, pages 3692–3698, 2015.
+\bibitem{c10} Yang Gao, Huazhe (Harry) Xu, Ji Lin, Fisher Yu, Sergey Levine, and Trevor Darrell. Reinforcement learning from imperfect demonstrations. Proceedings of the 35th International Conference on Machine Learning, 2018.
+\bibitem{c11} Ronald Parr and Stuart J Russell. Reinforcement learning with hierarchies of machines. In Advances in neural information processing systems, pages 1043–1049, 1998.
+\bibitem{c12} Richard S Sutton, Doina Precup, and Satinder Singh. Between mdps and semi-mdps: Learning, planning, and representing knowledge at multiple temporal scales. Journal of Artificial Intelligence Research, 1:1–39, 1998.
+\bibitem{c13} Hoang M Le, Nan Jiang, Alekh Agarwal, Miroslav Dudík, Yisong Yue, and Hal Daumé III. Hierarchical imitation and reinforcement learning. ArXiv e-prints, 2018.
+\bibitem{c14} Araki, Brandon \& Vodrahalli, Kiran \& Leech, Thomas \& Vasile, Cristian-Ioan \& Donahue, Mark \& Rus, Daniela. (2019). Learning to Plan with Logical Automata.
+\bibitem{c15} Aviv Tamar, Yi Wu, Garrett Thomas, Sergey Levine, and Pieter Abbeel. Value iteration networks. In Advances in Neural Information Processing Systems 29, pages 2154– 2162, 2016.
 
 
 \end{thebibliography}

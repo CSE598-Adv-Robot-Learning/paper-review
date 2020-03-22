@@ -92,7 +92,6 @@ Linear Temporal Logic (LTL) is a temporal logic language that is used to specify
 Multitask learning methods can refer to methods used to learn in a multitask setting, or when the model is learning several things at the same time. A paper published in 2017 described a framework for multitask deem reinforcement learning that is guided by policy sketches. The policy sketches are symbolic representations of a task that describe its component parts and subtasks [4]. A paper published in 2016 that proposes the use of a recurrent neural network (RNN) to represent a "fast" reinforcement learning algorithm which falls under the second type of multitask learning mentioned. In the proposed framework both the agent and the learning process of the agent itself are optimized throughout the learning process. This framework allows the learned agent to adapt to a task at the time of deployment via meta-learning [5].
 \newline 
 \indent The goal of meta-learning is to train a model on various learning tasks such that it con solve new learning tasks with a small number of training samples. Meta-learning has been studied and applied to various computing disciplines including the fast adaptation of deep networks [6] and one-shot learning in which robots learn how to complete a new, unseen task after only a single visual demonstration [7, 8]. 
-
 \subsection{Faulty Experts}
 
 In imitation learning, the goal is to mimic the demonstration of an expert. However, faulty experts can result in the wrong behavior being learned and replicated. To combat the effects of faulty experts, a paper published in 2015 introduces a new learning paradigm that combines imitation learning with intention learning, which learns the expert's intent rather than strictly copying its actions [9]. Another work published in 2019 proposed a unified reinforcement learning algorithm that normalizes the Q-function and learning through demonstration and interactive refinement in the environment using the same objective which helps protect from faulty demonstrations by not forcing the method to mimic all of the examples in the dataset [10].
@@ -184,13 +183,15 @@ We see that the LVIN and CNN have good accuracy while the VIN struggles to learn
  \includegraphics[scale=.5]{Pickworld.JPG}\\
  \caption{Pickworld Domain}
 \end{figure}
+
 The LVIN, the Hard-coded LVIN and the CNN performed the task quite well. The VIN struggled to learn the task. The LVIN models were the most successful.
+
 \begin{figure}[h]
  \centering
  \includegraphics[scale=.6]{PickworldResults.JPG}\\
  \caption{Performance in the Pickworld Domain}
 \end{figure}
-\newline
+
 \textbf{Driving}. In a 14x14 gridworld, this driving showcases the LVIN's ability to learn the rules of the world. The goal was to reach the goal position while learning to stop on red lights and wait until it turned green and to avoid obstacles in the environment.
 \begin{figure}[h]
  \centering
@@ -262,7 +263,7 @@ We saw that the performance of the LVIN, Mod. LVIN and the CNN were largely succ
  \includegraphics[scale=.5]{JacoArmFail.JPG}\\
  \caption{Reason for failure.}
 \end{figure}
-
+\newpage
 \section{Fixing Expert Mistakes}
 Sometimes the data that is learned has a mistake. In this case, the authors used the driving world and had an issue of running a red light 10 percent of the time. The authors corrected this by setting the initial state entry to 0 and red light state entry to 1 to show there is a red light there. 
 \begin{figure}[h]
